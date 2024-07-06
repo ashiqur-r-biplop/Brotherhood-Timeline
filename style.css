@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .container {
     max-width: 1000px;
     margin: 0 auto;
@@ -12,6 +16,7 @@
 .timline-container {
     background-color: #000;
     color: white;
+    padding: 40px 0px;
 }
 
 .timeline {
@@ -20,8 +25,8 @@
     align-items: center;
     flex-direction: column;
     transform: perspective(1200px) translateX(0px) translateY(0px) scale(1) rotate(0deg) rotateX(0deg) rotateY(0deg) skewX(0deg) skewY(0deg) translateZ(0px);
-    padding: 40px 0;
-    gap: 00px;
+    gap: 0px;
+    position: relative;
 }
 
 .timeline-item {
@@ -31,44 +36,64 @@
     width: 100%;
     position: relative;
     height: 400px;
-
 }
-.timeline-item::after{
+
+.timeline-item::after {
     content: '';
     position: absolute;
     width: 20px;
     height: 20px;
     left: 50%;
     top: 50%;
-    transform: translate(-50%,-50%);
-    background-color: #fff;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(180deg, #b8b8b8 0%, rgb(255, 255, 255) 100%);
     border-radius: 100%;
+    z-index: 999;
+    box-shadow: 0 0 50px 5px #fff;
 }
 
-.timeline-item::before{
+.timeline::before {
     content: '';
     position: absolute;
     width: 9px;
     height: 100%;
     left: 50%;
     top: 50%;
-    transform: translate(-50%,-50%);
-    background-color: #ffffff5d;
-    z-index: -1;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(to bottom, #ffffff5d, #ffffff5d);
+    transition: background .3s ease-in-out;
+    z-index: 99;
 }
+
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 9px;
+    height: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(180deg, #424242 0%, rgb(255, 255, 255) 100%);
+    transition: background .3s ease-in-out;
+    z-index: 99;
+}
+
+.timeline.animate::after {
+    animation: timeline 1s ease-in-out;
+}
+
+@keyframes timeline {
+    0% {
+        background: linear-gradient(to top, #ffffff5d, #ffffff5d);
+    }
+
+    100% {
+        background: linear-gradient(180deg, #424242 0%, rgb(255, 255, 255) 100%);
+    }
+}
+
 .timeline .img-box img {
-    align-items: flex-start;
-    align-self: start;
     display: flex;
-    flex: none;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    gap: 10px;
-    justify-content: center;
-    justify-self: start;
-    overflow: hidden;
-    padding: 0;
-    position: relative;
     width: 300px;
 }
 
@@ -78,10 +103,8 @@
     gap: 20px;
     justify-content: center;
     padding: 30px;
-    position: relative;
     width: 300px;
     border-radius: 10px;
     border: 1px solid white;
     box-shadow: 0 0 45px 4px #ffffff80, inset 0 0 50px 10px #ffffff52;
-
 }
